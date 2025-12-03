@@ -2,30 +2,48 @@
 @plugin "daisyui";
 
 @theme {
-  --color-accent: #d4af37;
-  --color-accent-hover: #f0c750;
-  --color-surface: #1a1a1a;
-  --color-surface-hover: #252525;
+  --color-accent: #38bdf8; /* Tech Blue */
+  --color-accent-hover: #0ea5e9;
+  --color-surface: #0f172a; /* Midnight Blue */
+  --color-surface-hover: #1e293b;
   --font-sans: "Outfit", sans-serif;
   --font-heading: "Playfair Display", serif;
 }
 
 /* Custom Styles */
 @layer components {
+  .bg-tech-grid {
+    background-color: #020617; /* Deepest Midnight */
+    background-image: 
+      linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    position: relative;
+  }
+
+  /* Vignette/Glow overlay for the grid */
+  .bg-tech-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, transparent 0%, #020617 100%);
+    pointer-events: none;
+  }
+
   .hero-title {
-    @apply text-5xl md:text-7xl font-heading font-bold mb-4 leading-tight;
+    @apply text-5xl md:text-7xl font-heading font-bold mb-4 leading-tight text-white;
   }
   
   .hero-subtitle {
-    @apply text-accent text-xl font-medium mb-4;
+    @apply text-accent text-xl font-medium mb-4 tracking-widest uppercase;
   }
 
   .section-title {
-    @apply text-4xl font-heading font-bold mb-4 text-center;
+    @apply text-4xl font-heading font-bold mb-4 text-center text-white;
   }
 
   .btn-primary {
-    @apply btn bg-accent text-black hover:bg-accent-hover border-none rounded-full px-8;
+    @apply btn bg-accent text-slate-950 hover:bg-accent-hover border-none rounded-full px-8 font-bold;
   }
 
   .btn-outline-custom {
@@ -41,7 +59,7 @@
 }
 
 .cursor-dot {
-    @apply fixed w-1.5 h-1.5 bg-accent rounded-full -translate-x-1/2 -translate-y-1/2;
+    @apply fixed w-1.5 h-1.5 bg-accent rounded-full -translate-x-1/2 -translate-y-1/2 shadow-[0_0_10px_var(--color-accent)];
 }
 
 .cursor-outline {
@@ -56,7 +74,7 @@
 }
 
 .animate-blob {
-    animation: blob 5s infinite ease-in-out;
+    animation: blob 8s infinite ease-in-out;
 }
 
 .fade-up {
