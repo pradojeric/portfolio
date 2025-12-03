@@ -104,4 +104,105 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
+
+  // Particle System
+  const canvas = document.getElementById('particles-canvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let mouse = { x: null, y: null };
+
+    // Resize canvas
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Mouse interaction
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.x;
+      mouse.y = e.y;
+    });
+
+    window.addEventListener('mouseout', () => {
+      mouse.x = null;
+      mouse.y = null;
+    });
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2;
+        this.speedX = (Math.random() * 1 - 0.5) * 0.5;
+        this.speedY = (Math.random() * 1 - 0.5) * 0.5;
+        this.color = '#38bdf8'; // Tech Blue
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Bounce off edges
+        if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+        if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+
+        // Mouse interaction (connect)
+        if (mouse.x != null) {
+          let dx = mouse.x - this.x;
+          let dy = mouse.y - this.y;
+          let distance = Math.sqrt(dx * dx + dy * dy);
+          if (distance < 150) {
+            const angle = Math.atan2(dy, dx);
+            this.x -= Math.cos(angle) * 0.5;
+            this.y -= Math.sin(angle) * 0.5;
+          }
+        }
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function init() {
+      particles = [];
+      const numberOfParticles = (canvas.width * canvas.height) / 15000;
+      for (let i = 0; i < numberOfParticles; i++) {
+        particles.push(new Particle());
+      }
+    }
+    init();
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        particles[i].update();
+        particles[i].draw();
+
+        // Draw connections
+        for (let j = i; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance < 100) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(56, 189, 248, ${1 - distance / 100})`;
+            ctx.lineWidth = 0.5;
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  }
 });
