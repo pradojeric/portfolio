@@ -71,11 +71,27 @@
                         <a href="#contact" class="btn-outline-custom">Contact Me</a>
                     </div>
                 </div>
-                <div class="order-1 md:order-2 flex justify-center relative fade-up delay-200">
+                <div class="order-1 md:order-2 flex justify-center relative fade-up delay-200 perspective-[1000px]">
                     <div class="absolute w-[400px] h-[400px] bg-accent/20 rounded-full blur-3xl animate-blob -z-10">
                     </div>
-                    <img src="/public/image/image.jpg" alt="Jeric Prado"
-                        class="w-[350px] h-[450px] object-cover rounded-3xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-500 hover:scale-[1.02]">
+
+                    <!-- 3D Tilt Card -->
+                    <div id="hero-tilt"
+                        class="relative w-[350px] h-[450px] transition-transform duration-100 ease-out [transform-style:preserve-3d] cursor-pointer">
+                        <!-- Decorative Border (Floating) -->
+                        <div
+                            class="absolute -inset-4 border-2 border-accent/30 rounded-3xl [transform:translateZ(40px)] pointer-events-none">
+                        </div>
+
+                        <!-- Main Image -->
+                        <img src="/public/image/image.jpg" alt="Jeric Prado"
+                            class="w-full h-full object-cover rounded-3xl shadow-2xl shadow-accent/20 [transform:translateZ(20px)]">
+
+                        <!-- Shine Effect -->
+                        <div
+                            class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none [transform:translateZ(21px)]">
+                        </div>
+                    </div>
                 </div>
             </div>
 
