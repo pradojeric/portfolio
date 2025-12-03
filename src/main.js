@@ -135,9 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
       constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2;
-        this.speedX = (Math.random() * 1 - 0.5) * 0.5;
-        this.speedY = (Math.random() * 1 - 0.5) * 0.5;
+        this.size = Math.random() * 3 + 1; // Increased size (1-4px)
+        this.speedX = (Math.random() * 1 - 0.5) * 0.8; // Slightly faster
+        this.speedY = (Math.random() * 1 - 0.5) * 0.8;
         this.color = '#38bdf8'; // Tech Blue
       }
 
@@ -156,8 +156,8 @@ document.addEventListener('DOMContentLoaded', () => {
           let distance = Math.sqrt(dx * dx + dy * dy);
           if (distance < 150) {
             const angle = Math.atan2(dy, dx);
-            this.x -= Math.cos(angle) * 0.5;
-            this.y -= Math.sin(angle) * 0.5;
+            this.x -= Math.cos(angle) * 1; // Stronger pull
+            this.y -= Math.sin(angle) * 1;
           }
         }
       }
@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function init() {
       particles = [];
-      const numberOfParticles = (canvas.width * canvas.height) / 15000;
+      const numberOfParticles = (canvas.width * canvas.height) / 8000; // Increased density (was 15000)
       for (let i = 0; i < numberOfParticles; i++) {
         particles.push(new Particle());
       }
