@@ -98,4 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
       tiltCard.style.transform = 'rotateX(0) rotateY(0)';
     });
   }
+
+  // Dynamic Year
+  const yearSpan = document.getElementById('year');
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
 });
